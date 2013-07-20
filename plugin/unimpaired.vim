@@ -161,7 +161,7 @@ endfunction
 function! s:BlankLeft(count) abort
   execute "normal i" . repeat(" ", a:count)
   let cur = getpos(".")
-  cur[2] = cur[2] + 1
+  let cur[2] = cur[2] + 1
   call setpos(cur)
   silent! call repeat#set("\<Plug>unimpairedBlankLeft", a:count)
 endfunction
