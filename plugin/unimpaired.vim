@@ -158,11 +158,21 @@ function! s:BlankDown(count) abort
   silent! call repeat#set("\<Plug>unimpairedBlankDown", a:count)
 endfunction
 
+function! s:BlankLeft(count) abort
+  execute "normal i" . repeat(" ", a:count)
+  let cur = getpos(".")
+  cur[2] = cur[2] + 1
+  call setpos(cur)
+  silent! call repeat#set("\<Plug>unimpairedBlankLeft", a:count)
+endfunction
+
 nnoremap <silent> <Plug>unimpairedBlankUp   :<C-U>call <SID>BlankUp(v:count1)<CR>
 nnoremap <silent> <Plug>unimpairedBlankDown :<C-U>call <SID>BlankDown(v:count1)<CR>
+nnoremap <silent> <Plug>unimpairedBlankLeft :<C-U>call <SID>BlankLeft(v:count1)<CR>
 
 nmap [<Space> <Plug>unimpairedBlankUp
 nmap ]<Space> <Plug>unimpairedBlankDown
+nmap ]s <Plug>unimpairedBlankLeft
 
 function! s:Move(cmd, count, map) abort
   normal! m`
