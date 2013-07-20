@@ -166,13 +166,37 @@ function! s:BlankLeft(count) abort
   silent! call repeat#set("\<Plug>unimpairedBlankLeft", a:count)
 endfunction
 
+function! s:BlankRight(count) abort
+  execute "normal a" . repeat(" ", a:count)
+  let cur = getpos(".")
+  let cur[2] = cur[2] - a:count
+  call setpos('.', cur)
+  silent! call repeat#set("\<Plug>unimpairedBlankRight", a:count)
+endfunction
+
+function! s:BlankSurrounded(count) abort
+  execute "normal i" . repeat(" ", a:count)
+  let cur = getpos(".")
+  let cur[2] = cur[2] + 1
+  call setpos('.', cur)
+  execute "normal a" . repeat(" ", a:count)
+  let cur = getpos(".")
+  let cur[2] = cur[2] - a:count
+  call setpos('.', cur)
+  silent! call repeat#set("\<Plug>unimpairedBlankSurrounded", a:count)
+endfunction
+
 nnoremap <silent> <Plug>unimpairedBlankUp   :<C-U>call <SID>BlankUp(v:count1)<CR>
 nnoremap <silent> <Plug>unimpairedBlankDown :<C-U>call <SID>BlankDown(v:count1)<CR>
 nnoremap <silent> <Plug>unimpairedBlankLeft :<C-U>call <SID>BlankLeft(v:count1)<CR>
+nnoremap <silent> <Plug>unimpairedBlankRight :<C-U>call <SID>BlankRight(v:count1)<CR>
+nnoremap <silent> <Plug>unimpairedBlankSurrounded :<C-U>call <SID>BlankSurrounded(v:count1)<CR>
 
 nmap [<Space> <Plug>unimpairedBlankUp
 nmap ]<Space> <Plug>unimpairedBlankDown
 nmap [s <Plug>unimpairedBlankLeft
+nmap ]s <Plug>unimpairedBlankRight
+nmap [d <Plug>unimpairedBlankSurrounded
 
 function! s:Move(cmd, count, map) abort
   normal! m`
