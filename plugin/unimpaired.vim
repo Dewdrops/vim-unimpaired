@@ -172,7 +172,7 @@ nnoremap <silent> <Plug>unimpairedBlankLeft :<C-U>call <SID>BlankLeft(v:count1)<
 
 nmap [<Space> <Plug>unimpairedBlankUp
 nmap ]<Space> <Plug>unimpairedBlankDown
-nmap ]s <Plug>unimpairedBlankLeft
+nmap [s <Plug>unimpairedBlankLeft
 
 function! s:Move(cmd, count, map) abort
   normal! m`
