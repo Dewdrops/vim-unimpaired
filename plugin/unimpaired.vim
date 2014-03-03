@@ -243,6 +243,9 @@ function! s:option_map(letter, option)
   exe 'nnoremap co'.a:letter.' :set <C-R>=<SID>toggle("'.a:option.'")<CR><CR>'
 endfunction
 
+nnoremap [ob :set background=light<CR>
+nnoremap ]ob :set background=dark<CR>
+nnoremap cob :set background=<C-R>=&background == 'dark' ? 'light' : 'dark'<CR><CR>
 call s:option_map('c', 'cursorline')
 call s:option_map('u', 'cursorcolumn')
 nnoremap [od :diffthis<CR>
@@ -258,10 +261,15 @@ call s:option_map('w', 'wrap')
 nnoremap [ox :set cursorline cursorcolumn<CR>
 nnoremap ]ox :set nocursorline nocursorcolumn<CR>
 nnoremap cox :set <C-R>=&cursorline && &cursorcolumn ? 'nocursorline nocursorcolumn' : 'cursorline cursorcolumn'<CR><CR>
+nnoremap [ov :set virtualedit+=all<CR>
+nnoremap ]ov :set virtualedit-=all<CR>
+nnoremap cov :set <C-R>=(&virtualedit =~# "all") ? 'virtualedit-=all' : 'virtualedit+=all'<CR><CR>
 
 function! s:setup_paste() abort
   let s:paste = &paste
+  let s:mouse = &mouse
   set paste
+  set mouse=
 endfunction
 
 nnoremap <silent> <Plug>unimpairedPaste :call <SID>setup_paste()<CR>
@@ -280,7 +288,9 @@ augroup unimpaired_paste
   autocmd InsertLeave *
         \ if exists('s:paste') |
         \   let &paste = s:paste |
+        \   let &mouse = s:mouse |
         \   unlet s:paste |
+        \   unlet s:mouse |
         \ endif
 augroup END
 
