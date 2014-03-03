@@ -197,7 +197,7 @@ nmap [<Space> <Plug>unimpairedBlankUp
 nmap ]<Space> <Plug>unimpairedBlankDown
 nmap [s <Plug>unimpairedBlankLeft
 nmap ]s <Plug>unimpairedBlankRight
-nmap [d <Plug>unimpairedBlankSurrounded
+nmap [w <Plug>unimpairedBlankSurrounded
 
 function! s:Move(cmd, count, map) abort
   normal! m`
